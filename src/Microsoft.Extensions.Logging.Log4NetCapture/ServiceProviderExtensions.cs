@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
     public static class ServiceProviderExtensions
     {
         public static IServiceCollection AddLog4NetCapture(this IServiceCollection serviceCollection,
-            Action<Log4NetCaptureBuilder> action)
+            Action<Log4NetCaptureBuilder>? action = null)
         {
             var builder = new Log4NetCaptureBuilder();
             action?.Invoke(builder);

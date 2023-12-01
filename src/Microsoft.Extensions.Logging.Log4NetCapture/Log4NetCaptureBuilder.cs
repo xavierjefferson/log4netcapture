@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             return this;
         }
 
-        public Log4NetCaptureBuilder WithFilters(IEnumerable<IFilter> filters)
+        public Log4NetCaptureBuilder WithFilters(params IFilter[] filters)
         {
             _configuration.Filters = filters?.ToList();
             return this;

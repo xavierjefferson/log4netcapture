@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
     {
         internal void EnableMessageLayout()
         {
-            this.Layout = new PatternLayout("m");
+            this.Layout = new PatternLayout("%message");
         }
 
         public Log4NetCaptureConfiguration()

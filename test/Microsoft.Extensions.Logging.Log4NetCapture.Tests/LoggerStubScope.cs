@@ -1,8 +1,8 @@
 namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
 
-public class LoggerStubScope : IDisposable
+public class LoggerStubScope<T> : IDisposable
 {
-    public LoggerStubScope(LoggerStub loggerStub, string name)
+    public LoggerStubScope(LoggerStubBase<T> loggerStub, string name)
     {
         LoggerStub = loggerStub;
         if (loggerStub.Scopes.Any()) Parent = loggerStub.Scopes.Peek();
@@ -10,16 +10,16 @@ public class LoggerStubScope : IDisposable
         Name = name;
     }
 
-    public LoggerStubScope? Parent { get; }
+    public LoggerStubScope<T>? Parent { get; }
     public string Name { get; }
-    public LoggerStub LoggerStub { get; }
+    public LoggerStubBase<T> LoggerStub { get; }
 
     public void Dispose()
     {
         LoggerStub.Scopes.Pop();
     }
 
-    public string FullName()
+    public string? FullName()
     {
         var last = this;
         var names = new List<string>();

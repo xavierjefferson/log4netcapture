@@ -8,6 +8,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
     {
         private static readonly List<LevelInfo> LevelInfos = new List<LevelInfo>
         {
+
             new LevelInfo(Level.All, LogLevel.Trace),
             new LevelInfo(Level.Verbose, LogLevel.Trace),
             new LevelInfo(Level.Trace, LogLevel.Trace),
