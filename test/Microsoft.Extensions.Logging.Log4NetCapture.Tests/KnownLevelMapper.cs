@@ -4,7 +4,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
 
 internal static class KnownLevelMapper
 {
-    public static Level GetLevel(KnownLevelEnum logLevel)
+    public static Level? GetLevel(KnownLevelEnum logLevel)
     {
         switch (logLevel)
         {

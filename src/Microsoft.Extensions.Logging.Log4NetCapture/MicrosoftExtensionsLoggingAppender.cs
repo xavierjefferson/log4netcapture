@@ -39,28 +39,27 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             var properties = loggingEvent.GetProperties();
 
             var action = ActionEnum.None;
-            string? currentContextName = null;
-            string toPush = null;
+            string? toPush = null;
             if (properties.Contains("NDC"))
             {
-                var tmp = properties["NDC"] as ThreadContextStack;
-                if (tmp == null)
+                var threadContextStack = properties["NDC"] as ThreadContextStack;
+                if (threadContextStack == null)
                 {
-                    action = ActionEnum.popall;
+                    action = ActionEnum.PopAll;
                 }
                 else
                 {
-                    currentContextName = tmp.ToString();
-                    if (tmp.Count == 0 && _scopeStack.Any())
-                        action = ActionEnum.popall;
-                    else if (tmp.Count > 0 && _lastContextName == null)
-                        action = ActionEnum.beginscope;
-                    else if (_lastContextName != null && tmp.Count > _lastContextLength &&
+                    var currentContextName = threadContextStack.ToString();
+                    if (threadContextStack.Count == 0 && _scopeStack.Any())
+                        action = ActionEnum.PopAll;
+                    else if (threadContextStack.Count > 0 && _lastContextName == null)
+                        action = ActionEnum.BeginScope;
+                    else if (_lastContextName != null && threadContextStack.Count > _lastContextLength &&
                              !_lastContextName.Equals(currentContextName))
-                        action = ActionEnum.beginscope;
-                    else if (_lastContextName != null && tmp.Count < _lastContextLength) action = ActionEnum.popone;
+                        action = ActionEnum.BeginScope;
+                    else if (_lastContextName != null && threadContextStack.Count < _lastContextLength) action = ActionEnum.PopSingle;
 
-                    if (action == ActionEnum.beginscope)
+                    if (action == ActionEnum.BeginScope)
                     {
                         if (_lastContextName != null && currentContextName.StartsWith(_lastContextName) &&
                             _lastContextName.Length < currentContextName.Length)
@@ -69,25 +68,25 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
                             toPush = currentContextName.Trim();
                     }
 
-                    _lastContextLength = tmp.Count;
+                    _lastContextLength = threadContextStack.Count;
                     _lastContextName = currentContextName;
                 }
             }
             else
             {
-                action = ActionEnum.popall;
+                action = ActionEnum.PopAll;
             }
 
             switch (action)
             {
-                case ActionEnum.beginscope:
+                case ActionEnum.BeginScope:
                     _scopeStack.Push(logger.BeginScope(toPush));
                     break;
-                case ActionEnum.popone:
+                case ActionEnum.PopSingle:
                     if (_scopeStack.Any()) _scopeStack.Pop().Dispose();
 
                     break;
-                case ActionEnum.popall:
+                case ActionEnum.PopAll:
                     while (_scopeStack.Any()) _scopeStack.Pop().Dispose();
                     _lastContextName = null;
                     _lastContextLength = 0;
@@ -106,7 +105,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             if (_useScopes) AdjustScope(loggingEvent, logger);
             if (logger.IsEnabled(logLevel))
             {
-                string? rendered = null;
+                string? rendered;
                 try
                 {
                     rendered = RenderLoggingEvent(loggingEvent);
@@ -124,9 +123,9 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
         private enum ActionEnum
         {
             None = 0,
-            beginscope,
-            popone,
-            popall
+            BeginScope,
+            PopSingle,
+            PopAll
         }
     }
 }

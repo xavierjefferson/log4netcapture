@@ -7,9 +7,18 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
 {
     public class Log4NetCaptureConfiguration
     {
+        internal void EnableMessageLayout()
+        {
+            this.Layout = new PatternLayout("m");
+        }
+
+        public Log4NetCaptureConfiguration()
+        {
+            EnableMessageLayout();
+        }
         public Level? RootAppenderLevel { get; set; }
         public Level? AppenderLevel { get; set; }
-        public ILayout? Layout { get; set; } = new SimpleLayout();
+        public ILayout? Layout { get; set; } 
 
         public List<IFilter>? Filters { get; set; } = new List<IFilter>();
         public bool UseScopes { get; internal set; } = true;

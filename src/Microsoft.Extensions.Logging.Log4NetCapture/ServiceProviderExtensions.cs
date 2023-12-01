@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             return serviceCollection;
         }
 
-        public static IServiceProvider CaptureLog4Net(this IServiceProvider serviceProvider)
+        public static IServiceProvider StartLog4NetCapture(this IServiceProvider serviceProvider)
         {
             var logLevelMapper = serviceProvider.GetRequiredService<ILogLevelMapper>();
             var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();

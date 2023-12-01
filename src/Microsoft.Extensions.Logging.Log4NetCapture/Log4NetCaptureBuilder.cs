@@ -34,21 +34,15 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             return this;
         }
 
-        public Log4NetCaptureBuilder WithPatternLayout(string layout)
+        public Log4NetCaptureBuilder WithMessageOnlyLayout()
         {
-            _configuration.Layout = new PatternLayout(layout);
+            _configuration.EnableMessageLayout();
             return this;
         }
 
         public Log4NetCaptureBuilder WithLayout(ILayout layout)
         {
             _configuration.Layout = layout;
-            return this;
-        }
-
-        public Log4NetCaptureBuilder WithSimpleLayout()
-        {
-            _configuration.Layout = new SimpleLayout();
             return this;
         }
 

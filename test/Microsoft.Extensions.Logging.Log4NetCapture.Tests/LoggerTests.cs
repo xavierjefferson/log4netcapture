@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging.Configuration;
 using Moq;
 using Xunit;
-
+using Microsoft.Extensions.Logging.Log4NetCapture;
 namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
 
 public class LoggerTests
@@ -55,6 +55,7 @@ public class LoggerTests
     [InlineData(KnownLevelEnum.Warn, true, typeof(int))]
     public void Test1(KnownLevelEnum logLevel, bool iLoggerEnabled, Type loggerType)
     {
+        var startDate = DateTime.Now;
         var type2 = typeof(Type);
         var messages = new List<LogEntry>();
         var dict = new Dictionary<string, LoggerStub>();
@@ -79,12 +80,13 @@ public class LoggerTests
         {
             var serializedLayout = new SerializedLayout();
             serializedLayout.ActivateOptions();
-            config.WithRootAppenderLevel(Level.All).WithLayout(serializedLayout)
-                .WithAppenderLevel(Level.Verbose); //.WithPatternLayout("%-5level [%thread]: %message%newline");
+            config.WithLayout(serializedLayout);
+            config.WithRootAppenderLevel(Level.All)
+                .WithAppenderLevel(Level.All); //.WithPatternLayout("%-5level [%thread]: %message%newline");
         });
 
         var serviceProvider = serviceCollection.BuildServiceProvider();
-        serviceProvider.CaptureLog4Net();
+        serviceProvider.StartLog4NetCapture();
         var log = LogManager.GetLogger(loggerType);
         var log2 = LogManager.GetLogger(type2);
         using (ThreadContext.Stacks["NDC"].Push("context"))
@@ -109,6 +111,7 @@ public class LoggerTests
         Level? currentLevel = null;
         switch (logLevel)
         {
+
             case KnownLevelEnum.Warn:
                 log.Warn("abc");
                 break;
@@ -162,6 +165,7 @@ public class LoggerTests
                 Assert.NotEmpty(messages);
                 if (currentLevel != null) Assert.Contains(messages, i => i.Level.Equals(currentLevel.DisplayName));
                 Assert.Contains(messages, i => i.Logger.Equals(loggerType.FullName));
+                Assert.Contains(messages, i => i.Date >= startDate);
             }
             else
             {
