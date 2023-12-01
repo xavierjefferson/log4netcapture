@@ -43,9 +43,9 @@ The following table shows how the Log4Net levels have been mapped to Extensions.
 |--|--|--|
 | Off |2147483647|None  |
 | All |-2147483648|Trace  |
-| Finer |20000|Trace  |
 | Finest |10000|Trace  |
 | Verbose |10000|Trace  |
+| Finer |20000|Trace  |
 | Trace |20000|Trace  |
 | Fine |30000|Debug  |
 | Debug |30000|Debug  |
@@ -54,8 +54,8 @@ The following table shows how the Log4Net levels have been mapped to Extensions.
 | Warn |60000|Warning  |
 | Error |70000|Error  |
 | Severe |80000|Error  |
-| Alert |100000|Critical  |
-| Emergency |120000|Critical  |
-| Fatal |110000|Critical  |
 | Critical |90000|Critical  |
+| Alert |100000|Critical  |
+| Fatal |110000|Critical  |
+| Emergency |120000|Critical  |
 | Log4Net_Debug |120000|Critical  |
