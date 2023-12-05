@@ -15,17 +15,26 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             var configuration = builder.Build();
             serviceCollection.AddSingleton(configuration);
             serviceCollection.AddSingleton<ILogLevelMapper, LogLevelMapper>();
+            if (configuration.InternalLogger == null)
+                serviceCollection.AddSingleton<IInternalLogger, InternalLoggerStub>();
+            else
+                serviceCollection.AddSingleton(configuration.InternalLogger);
+            serviceCollection
+                .AddSingleton<IMicrosoftExtensionsLoggingScopeManager, MicrosoftExtensionsLoggingScopeManager>();
+            serviceCollection.AddSingleton<MicrosoftExtensionsLoggingAppender>();
             return serviceCollection;
         }
 
         public static IServiceProvider StartLog4NetCapture(this IServiceProvider serviceProvider)
         {
-            var logLevelMapper = serviceProvider.GetRequiredService<ILogLevelMapper>();
-            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+            //var logLevelMapper = serviceProvider.GetRequiredService<ILogLevelMapper>();
+            //var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
             var configuration = serviceProvider.GetService<Log4NetCaptureConfiguration>() ??
                                 new Log4NetCaptureConfiguration();
-            var appender = new MicrosoftExtensionsLoggingAppender(loggerFactory, configuration,
-                serviceProvider.GetRequiredService<ILogger<MicrosoftExtensionsLoggingAppender>>(), logLevelMapper);
+            //var appender = new MicrosoftExtensionsLoggingAppender(loggerFactory, configuration,
+            //    serviceProvider.GetRequiredService<ILogger<MicrosoftExtensionsLoggingAppender>>(), logLevelMapper,
+            //    serviceProvider.GetRequiredService<IMicrosoftExtensionsLoggingScopeManager>());
+            var appender = serviceProvider.GetRequiredService<MicrosoftExtensionsLoggingAppender>();
             appender.ActivateOptions();
             var hierarchy = (Hierarchy)LogManager.GetRepository();
             hierarchy.Root.AddAppender(appender);
@@ -33,6 +42,24 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
 
             hierarchy.Configured = true;
             return serviceProvider;
+        }
+
+        private class InternalLoggerStub : IInternalLogger
+        {
+            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+                Func<TState, Exception?, string> formatter)
+            {
+            }
+
+            public bool IsEnabled(LogLevel logLevel)
+            {
+                return false;
+            }
+
+            public IDisposable BeginScope<TState>(TState state)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

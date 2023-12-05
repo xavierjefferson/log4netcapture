@@ -7,9 +7,11 @@ public class LogEntryLoggerStub : LoggerStubBase<LogEntry>
     public override LogEntry CreateItem<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
         Func<TState, Exception?, string> formatter)
     {
-        var logEntry = JsonConvert.DeserializeObject<LogEntry>(formatter(state, exception));
-        logEntry.Date = DateTime.Now;
-        if (Scopes.Any()) logEntry.Scope = Scopes.Peek().FullName();
+        var json = formatter(state, exception);
+        var logEntry = JsonConvert.DeserializeObject<LogEntry>(json);
+        logEntry.EventualPassedException = exception;
+        
+        if (AnyCurrentThreadScope()) logEntry.Scope =  PeekCurrentThreadScope().FullName();
         return logEntry;
     }
 }

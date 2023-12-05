@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using log4net.Core;
 using log4net.Filter;
 using log4net.Layout;
@@ -30,7 +29,9 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
 
         public Log4NetCaptureBuilder WithFilters(params IFilter[] filters)
         {
-            _configuration.Filters = filters?.ToList();
+            if (filters == null) throw new ArgumentNullException(nameof(filters));
+            _configuration.Filters.AddRange(filters);
+            ;
             return this;
         }
 
@@ -42,6 +43,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
 
         public Log4NetCaptureBuilder WithLayout(ILayout layout)
         {
+            if (layout == null) throw new ArgumentNullException(nameof(layout));
             _configuration.Layout = layout;
             return this;
         }
@@ -49,6 +51,12 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
         public Log4NetCaptureConfiguration Build()
         {
             return _configuration;
+        }
+
+        public Log4NetCaptureBuilder WithInternalLogger(IInternalLogger testInternalLogger)
+        {
+            _configuration.InternalLogger = testInternalLogger;
+            return this;
         }
     }
 }

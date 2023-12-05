@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="log4net.Ext.Json" Version="2.0.10.1" />
+    <PackageReference Include="log4net.ext.json.net" Version="2.0.10.1" />
     <PackageReference Include="microsoft.extensions.logging" Version="6.0.0" />
     <PackageReference Include="microsoft.extensions.logging.console" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />

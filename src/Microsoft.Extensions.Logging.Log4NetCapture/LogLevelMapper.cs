@@ -8,7 +8,6 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
     {
         private static readonly List<LevelInfo> LevelInfos = new List<LevelInfo>
         {
-
             new LevelInfo(Level.All, LogLevel.Trace),
             new LevelInfo(Level.Verbose, LogLevel.Trace),
             new LevelInfo(Level.Trace, LogLevel.Trace),
@@ -32,9 +31,7 @@ namespace Microsoft.Extensions.Logging.Log4NetCapture
             if (LevelPairs.ContainsKey(level.Value)) return LevelPairs[level.Value];
 
             var tuple = LevelTuples.FirstOrDefault(i => i.Level.Value <= level.Value);
-            if (tuple != null) return tuple.LogLevel;
-
-            return LogLevel.None;
+            return tuple?.LogLevel ?? LogLevel.None;
         }
 
 

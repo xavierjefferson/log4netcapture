@@ -5,8 +5,8 @@ public class LoggerStubScope<T> : IDisposable
     public LoggerStubScope(LoggerStubBase<T> loggerStub, string name)
     {
         LoggerStub = loggerStub;
-        if (loggerStub.Scopes.Any()) Parent = loggerStub.Scopes.Peek();
-        loggerStub.Scopes.Push(this);
+        if (loggerStub.AnyCurrentThreadScope()) Parent = loggerStub.PeekCurrentThreadScope();
+        loggerStub.PushCurrentThreadScope(this);
         Name = name;
     }
 
@@ -16,9 +16,8 @@ public class LoggerStubScope<T> : IDisposable
 
     public void Dispose()
     {
-        LoggerStub.Scopes.Pop();
+        LoggerStub.PopCurrentThreadScope();
     }
-
     public string? FullName()
     {
         var last = this;
@@ -31,4 +30,5 @@ public class LoggerStubScope<T> : IDisposable
 
         return string.Join(".", names);
     }
+
 }
