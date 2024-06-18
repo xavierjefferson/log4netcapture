@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using log4net.Core;
+using Microsoft.Extensions.Logging;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Timer = System.Timers.Timer;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public class MicrosoftExtensionsLoggingScopeManager : IMicrosoftExtensionsLoggingScopeManager, IDisposable
     {

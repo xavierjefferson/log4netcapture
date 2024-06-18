@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Models
+namespace Snork.Log4NetCapture.Models
 {
     public class StackItem
     {

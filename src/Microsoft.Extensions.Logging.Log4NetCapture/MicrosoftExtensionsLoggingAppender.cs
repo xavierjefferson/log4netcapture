@@ -3,8 +3,9 @@ using System.Linq;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
+using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public class MicrosoftExtensionsLoggingAppender : AppenderSkeleton
     {

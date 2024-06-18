@@ -2,8 +2,9 @@
 using log4net;
 using log4net.Repository.Hierarchy;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public static class ServiceProviderExtensions
     {

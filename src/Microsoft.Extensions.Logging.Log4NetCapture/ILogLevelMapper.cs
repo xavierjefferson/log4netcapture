@@ -1,6 +1,7 @@
 ﻿using log4net.Core;
+using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public interface ILogLevelMapper
     {

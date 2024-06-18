@@ -3,7 +3,7 @@ using log4net.Core;
 using log4net.Filter;
 using log4net.Layout;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public class Log4NetCaptureBuilder
     {

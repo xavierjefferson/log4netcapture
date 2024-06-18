@@ -1,4 +1,6 @@
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
+using Microsoft.Extensions.Logging;
+
+namespace Snork.Log4NetCapture.Tests;
 
 public class StringLoggerStub : LoggerStubBase<string>
 {

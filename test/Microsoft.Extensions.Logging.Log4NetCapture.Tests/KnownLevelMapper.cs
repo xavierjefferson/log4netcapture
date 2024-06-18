@@ -1,6 +1,6 @@
 using log4net.Core;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
+namespace Snork.Log4NetCapture.Tests;
 
 internal static class KnownLevelMapper
 {

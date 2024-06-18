@@ -1,6 +1,7 @@
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
+namespace Snork.Log4NetCapture.Tests;
 
 public class LogEntryLoggerStub : LoggerStubBase<LogEntry>
 {

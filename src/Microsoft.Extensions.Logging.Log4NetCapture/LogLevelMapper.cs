@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using log4net.Core;
+using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public class LogLevelMapper : ILogLevelMapper
     {

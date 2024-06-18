@@ -1,7 +1,8 @@
 using log4net.Core;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
+namespace Snork.Log4NetCapture.Tests;
 
 public class LogLevelMapperTests
 {

@@ -7,13 +7,15 @@ using log4net.Layout;
 using log4net.ObjectRenderer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture.Tests;
+namespace Snork.Log4NetCapture.Tests;
 
 public class LoggerTests
 {

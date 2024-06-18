@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using log4net.Core;
 using log4net.Util;
-using Microsoft.Extensions.Logging.Log4NetCapture.Models;
+using Microsoft.Extensions.Logging;
+using Snork.Log4NetCapture.Models;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Microsoft.Extensions.Logging.Log4NetCapture
+namespace Snork.Log4NetCapture
 {
     public class LoggerScopeWrapper
     {

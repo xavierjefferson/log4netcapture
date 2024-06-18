@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Company>Xavier Jefferson</Company>
+    <Description>contains a custom Log4Net appender that allows you to pipe Log4Net log entries to your configured Microsoft.Extensions.Logging log providers</Description>
+    <Copyright>(c) 2024 Xavier Jefferson.  All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/xavierjefferson/log4netcapture</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/xavierjefferson/log4netcapture</RepositoryUrl>
+    <PackageTags>log4net logging extensions appender</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.10" />
+    <PackageReference Include="microsoft.extensions.logging" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>
