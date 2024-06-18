@@ -11,6 +11,8 @@
     <RepositoryUrl>https://github.com/xavierjefferson/log4netcapture</RepositoryUrl>
     <PackageTags>log4net logging extensions appender</PackageTags>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>XavierJefferson</Authors>
   </PropertyGroup>
 
   <ItemGroup>

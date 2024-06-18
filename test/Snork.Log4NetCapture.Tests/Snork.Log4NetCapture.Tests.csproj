@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Microsoft.Extensions.Logging.Log4NetCapture\Snork.Log4NetCapture.csproj" />
+    <ProjectReference Include="..\..\src\Snork.Log4NetCapture\Snork.Log4NetCapture.csproj" />
   </ItemGroup>
 
 </Project>

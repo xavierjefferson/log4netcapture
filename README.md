@@ -1,6 +1,8 @@
 
 # Log4NetCapture
 
+[![Latest version](https://img.shields.io/nuget/v/Snork.Log4NetCapture.svg)](https://www.nuget.org/packages/Snork.Log4NetCapture/) 
+
 This package, Log4NetCapture, allows you to pipe Log4Net log entries to your configured Microsoft.Extensions.Logging log providers.  It is designed for use with .NET Core 6.0 and higher.
 
 This will allow you to turn on logging for legacy code that logs to Log4Net, when you really want your output through modern Microsoft.Extensions.Logging log providers and **not** the older Log4Net appenders.
@@ -10,7 +12,7 @@ In order to make this work, you must be using the built-in dependency injection 
 ## Usage
 Add a using statement to your startup code:
 
-    using Microsoft.Extensions.Logging.Log4NetCapture;
+    using Snork.Log4NetCapture;
 
 During initialization of your `ServiceCollection` instance during application startup, turn on logging to the Extensions.Logging provider of your choice, which might look like:
 
